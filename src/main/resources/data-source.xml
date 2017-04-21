@@ -6,18 +6,25 @@ xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration http://tis
 
     <!-- ダイアレクト設定 -->
     <!-- TODO:使用するDBに合わせてダイアレクトを設定すること -->
-    <component name="dialect" class="nablarch.core.db.dialect.H2Dialect" />
+    <component name="dialect" class="nablarch.core.db.dialect.OracleDialect" />
+    <component class="org.seasar.doma.jdbc.dialect.OracleDialect" name="domaDialect" />
 
     <!-- データソース設定 -->
     <!-- TODO: プロジェクトで使用するDB製品にあわせた定義を設定してください。 -->
-    <component name="dataSource"
-               class="org.apache.commons.dbcp.BasicDataSource">
-      <property name="driverClassName" value="${nablarch.db.jdbcDriver}"/>
-      <property name="url"             value="${nablarch.db.url}"/>
-      <property name="username"        value="${nablarch.db.user}"/>
-      <property name="password"        value="${nablarch.db.password}"/>
-      <property name="maxActive"       value="${nablarch.db.maxPoolSize}"/>
-      <property name="initialSize"     value="${nablarch.db.initialPoolSize}"/>
-    </component>
+    <!--<component name="dataSource"-->
+               <!--class="org.apache.commons.dbcp.BasicDataSource">-->
+      <!--<property name="driverClassName" value="${nablarch.db.jdbcDriver}"/>-->
+      <!--<property name="url"             value="${nablarch.db.url}"/>-->
+      <!--<property name="username"        value="${nablarch.db.user}"/>-->
+      <!--<property name="password"        value="${nablarch.db.password}"/>-->
+      <!--<property name="maxActive"       value="${nablarch.db.maxPoolSize}"/>-->
+      <!--<property name="initialSize"     value="${nablarch.db.initialPoolSize}"/>-->
+    <!--</component>-->
+  
+  <component name="dataSource" class="oracle.jdbc.pool.OracleDataSource">
+    <property name="URL" value="jdbc:oracle:thin:@localhost:1521/xe" />
+    <property name="user" value="siosio" />
+    <property name="password" value="siosio" />
+  </component>
 
 </component-configuration>

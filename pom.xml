@@ -421,7 +421,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.12</version>
+      <version>1.7.25</version>
     </dependency>
 
     <dependency>
@@ -471,6 +471,30 @@
       <groupId>com.nablarch.integration</groupId>
       <artifactId>nablarch-jboss-logging-adaptor</artifactId>
       <version>1.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.seasar.doma</groupId>
+      <artifactId>doma</artifactId>
+      <version>2.16.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.nablarch.integration</groupId>
+      <artifactId>nablarch-doma-adaptor</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>12.1.0.1-atlassian-hosted</version>
     </dependency>
   </dependencies>
 

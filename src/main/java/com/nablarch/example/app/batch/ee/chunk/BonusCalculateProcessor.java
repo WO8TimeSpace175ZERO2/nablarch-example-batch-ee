@@ -1,11 +1,12 @@
 package com.nablarch.example.app.batch.ee.chunk;
 
-import com.nablarch.example.app.batch.ee.form.EmployeeForm;
-import com.nablarch.example.app.entity.Bonus;
-
 import javax.batch.api.chunk.ItemProcessor;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
+
+import org.seasar.doma.jdbc.SelectOptions;
+
+import nablarch.integration.doma.DomaDaoRepository;
 
 /**
  * 賞与計算を行う{@link ItemProcessor}実装クラス。
@@ -18,13 +19,13 @@ public class BonusCalculateProcessor implements ItemProcessor {
 
     @Override
     public Object processItem(Object item) {
+        final Long id = (Long) item;
 
-        EmployeeForm form = (EmployeeForm) item;
-        Bonus bonus = new Bonus();
-        bonus.setEmployeeId(form.getEmployeeId());
-        bonus.setPayments(calculateBonus(form));
-
-        return bonus;
+        final SelectOptions selectOptions = SelectOptions.get()
+                                                         .forUpdate();
+        final EmployeeDto form = DomaDaoRepository.get(BonusCalculateDao.class)
+                                                  .findById(id, selectOptions);
+        return new Bonus(form.getEmployeeId(), calculateBonus(form));
     }
 
     /**
@@ -33,7 +34,7 @@ public class BonusCalculateProcessor implements ItemProcessor {
      * @param form 社員情報Form
      * @return 賞与
      */
-    private static Long calculateBonus(EmployeeForm form) {
+    private static Long calculateBonus(EmployeeDto form) {
         if (form.getFixedBonus() == null) {
             return form.getBasicSalary() * form.getBonusMagnification() / 100;
         } else {

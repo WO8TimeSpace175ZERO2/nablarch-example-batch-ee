@@ -2,17 +2,15 @@ package com.nablarch.example.app.batch.ee.chunk;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import nablarch.common.dao.DeferredEntityList;
-import nablarch.common.dao.UniversalDao;
 import nablarch.fw.batch.ee.progress.ProgressManager;
-
-import com.nablarch.example.app.batch.ee.form.EmployeeForm;
+import nablarch.integration.doma.DomaDaoRepository;
 
 /**
  * 社員情報をDBから取得する{@link javax.batch.api.chunk.ItemReader}実装クラス。
@@ -23,14 +21,12 @@ import com.nablarch.example.app.batch.ee.form.EmployeeForm;
 @Named
 public class EmployeeSearchReader extends AbstractItemReader {
 
-    /** 社員情報のリスト */
-    private DeferredEntityList<EmployeeForm> list;
-
-    /** 社員情報を保持するイテレータ */
-    private Iterator<EmployeeForm> iterator;
-
     /** 進捗管理Bean */
     private final ProgressManager progressManager;
+
+    private Iterator<Long> inputList;
+
+    private Stream<Long> stream;
 
     /**
      * コンストラクタ。
@@ -41,27 +37,29 @@ public class EmployeeSearchReader extends AbstractItemReader {
     public EmployeeSearchReader(ProgressManager progressManager) {
         this.progressManager = progressManager;
     }
-
+    
     @Override
     public void open(Serializable checkpoint) throws Exception {
 
-        progressManager.setInputCount(UniversalDao.countBySqlFile(EmployeeForm.class, "SELECT_EMPLOYEE"));
+        final EmployeeSearchReaderDao dao = DomaDaoRepository.get(EmployeeSearchReaderDao.class);
+        progressManager.setInputCount(dao.count());
 
-        list = (DeferredEntityList<EmployeeForm>) UniversalDao.defer()
-                .findAllBySqlFile(EmployeeForm.class, "SELECT_EMPLOYEE");
-        iterator = list.iterator();
+        stream = dao.search();
+        inputList = stream.iterator();
+
     }
-
+    
     @Override
     public Object readItem() {
-        if (iterator.hasNext()) {
-            return iterator.next();
+        if (inputList.hasNext()) {
+            return inputList.next();
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
     public void close() throws Exception {
-        list.close();
+        stream.close();
     }
 }

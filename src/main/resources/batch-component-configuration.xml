@@ -41,10 +41,19 @@
         </component>
         <component class="nablarch.fw.batch.ee.listener.step.StepTransactionManagementListener" />
     </list>
+  
+    <list name="bonus-calculate.stepListeners">
+      <component class="nablarch.fw.batch.ee.listener.step.StepProgressLogListener" />
+      <component class="nablarch.integration.doma.batch.ee.listener.DomaTransactionStepListener" />
+    </list>
 
     <!-- ItemWriteListener -->
     <list name="itemWriteListeners">
         <component class="nablarch.fw.batch.ee.listener.chunk.ItemWriteTransactionManagementListener" />
     </list>
+  
+  <list name="bonus-calculate.itemWriteListeners">
+    <component class="nablarch.integration.doma.batch.ee.listener.DomaTransactionItemWriteListener" />
+  </list>
 
 </component-configuration>
