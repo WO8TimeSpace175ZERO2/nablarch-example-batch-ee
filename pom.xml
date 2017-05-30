@@ -16,20 +16,27 @@
   <!-- DB接続設定とビルド設定 -->
   <properties>
     <!-- 使用するDBによって変更になるパラメータ -->
-    <dba.useDB>h2</dba.useDB>
+    <!--<dba.useDB>h2</dba.useDB>-->
+    <!--<dba.classifier>${dba.useDB}</dba.classifier>-->
+    <!--<dba.erdFile>src/main/resources/entity/h2.edm</dba.erdFile>-->
+    <!--<dba.extraDdlDirectory>src/main/resources/extraDdl/${dba.useDB}</dba.extraDdlDirectory>-->
+    <!--<dba.dataDirectory>src/test/resources/data/${dba.useDB}</dba.dataDirectory>-->
+
+    <!-- 使用するDBによって変更になるパラメータ -->
+    <dba.useDB>oracle</dba.useDB>
     <dba.classifier>${dba.useDB}</dba.classifier>
-    <dba.erdFile>src/main/resources/entity/h2.edm</dba.erdFile>
+    <dba.erdFile>src/main/resources/entity/oracle.edm</dba.erdFile>
     <dba.extraDdlDirectory>src/main/resources/extraDdl/${dba.useDB}</dba.extraDdlDirectory>
     <dba.dataDirectory>src/test/resources/data/${dba.useDB}</dba.dataDirectory>
 
     <!-- gsp-dba-maven-pluginが使用するデータベース設定 -->
-    <nablarch.db.jdbcDriver>org.h2.Driver</nablarch.db.jdbcDriver>
-    <nablarch.db.url>jdbc:h2:./h2/db/nablarch_example</nablarch.db.url>
-    <nablarch.db.adminUser>sa</nablarch.db.adminUser>
-    <nablarch.db.adminPassword></nablarch.db.adminPassword>
+    <nablarch.db.jdbcDriver>oracle.jdbc.driver.OracleDriver</nablarch.db.jdbcDriver>
+    <nablarch.db.url>jdbc:oracle:thin:@localhost:1521/xe</nablarch.db.url>
+    <nablarch.db.adminUser>system</nablarch.db.adminUser>
+    <nablarch.db.adminPassword>oradbnouchi</nablarch.db.adminPassword>
     <nablarch.db.user>NABLARCH_EXAMPLE</nablarch.db.user>
     <nablarch.db.password>NABLARCH_EXAMPLE</nablarch.db.password>
-    <nablarch.db.schema></nablarch.db.schema>
+    <nablarch.db.schema>NABLARCH_EXAMPLE</nablarch.db.schema>
 
     <!-- maven-gsp-dba-pluginで配布するテストデータのartifactId。 -->
     <db.testDataArtifactId>nablarch-example-batch-ee-testdata</db.testDataArtifactId>
@@ -79,6 +86,13 @@
       <plugin>
         <groupId>jp.co.tis.gsp</groupId>
         <artifactId>gsp-dba-maven-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>12.1.0.1-atlassian-hosted</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>com.nablarch.etl</groupId>
