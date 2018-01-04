@@ -18,18 +18,17 @@
     <!-- 使用するDBによって変更になるパラメータ -->
     <dba.useDB>h2</dba.useDB>
     <dba.classifier>${dba.useDB}</dba.classifier>
-    <dba.erdFile>src/main/resources/entity/h2.edm</dba.erdFile>
+    <dba.erdFile>src/main/resources/entity/oracle.edm</dba.erdFile>
     <dba.extraDdlDirectory>src/main/resources/extraDdl/${dba.useDB}</dba.extraDdlDirectory>
     <dba.dataDirectory>src/test/resources/data/${dba.useDB}</dba.dataDirectory>
 
     <!-- gsp-dba-maven-pluginが使用するデータベース設定 -->
-    <nablarch.db.jdbcDriver>org.h2.Driver</nablarch.db.jdbcDriver>
-    <nablarch.db.url>jdbc:h2:./h2/db/nablarch_example</nablarch.db.url>
-    <nablarch.db.adminUser>sa</nablarch.db.adminUser>
-    <nablarch.db.adminPassword></nablarch.db.adminPassword>
-    <nablarch.db.user>NABLARCH_EXAMPLE</nablarch.db.user>
-    <nablarch.db.password>NABLARCH_EXAMPLE</nablarch.db.password>
-    <nablarch.db.schema></nablarch.db.schema>
+    <nablarch.db.jdbcDriver>oracle.jdbc.driver.OracleDriver</nablarch.db.jdbcDriver>
+    <nablarch.db.url>jdbc:oracle:thin:@localhost:1521/xe</nablarch.db.url>
+    <nablarch.db.adminUser>system</nablarch.db.adminUser>
+    <nablarch.db.adminPassword>oracle</nablarch.db.adminPassword>
+    <nablarch.db.user>batch</nablarch.db.user>
+    <nablarch.db.password>batch</nablarch.db.password>
 
     <!-- maven-gsp-dba-pluginで配布するテストデータのartifactId。 -->
     <db.testDataArtifactId>nablarch-example-batch-ee-testdata</db.testDataArtifactId>
@@ -221,10 +220,9 @@
             <dependencies>
               <!-- プロジェクトで使用するDB製品にあわせたJDBCドライバに上書きする -->
               <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.192</version>
-                <scope>runtime</scope>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>11.2.0.4.0</version>
               </dependency>
             </dependencies>
             <executions>
@@ -450,9 +448,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.192</version>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0.4.0</version>
     </dependency>
 
     <dependency>
