@@ -21,13 +21,13 @@ public class BonusCalculateProcessorTest {
     public void testFixedBonus() {
 
         final EmployeeForm dto = new EmployeeForm();
-        dto.setEmployeeId(1L);
+        dto.setEmployeeNo(1L);
         dto.setBasicSalary(100000L);
         dto.setFixedBonus(50000L);
 
         Bonus result = (Bonus) sut.processItem(dto);
 
-        assertThat(result.getEmployeeId(), is(1L));
+        assertThat(result.getEmployeeNo(), is(1L));
         assertThat(result.getPayments(), is(50000L));
     }
 
@@ -38,13 +38,13 @@ public class BonusCalculateProcessorTest {
     public void testMagnification() {
 
         final EmployeeForm dto = new EmployeeForm();
-        dto.setEmployeeId(2L);
+        dto.setEmployeeNo(2L);
         dto.setBasicSalary(250000L);
         dto.setBonusMagnification(200L);
 
         Bonus result = (Bonus) sut.processItem(dto);
 
-        assertThat(result.getEmployeeId(), is(2L));
+        assertThat(result.getEmployeeNo(), is(2L));
         assertThat(result.getPayments(), is(500000L));
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <!-- 親POM -->
@@ -16,19 +17,19 @@
   <!-- DB接続設定とビルド設定 -->
   <properties>
     <!-- 使用するDBによって変更になるパラメータ -->
-    <dba.useDB>h2</dba.useDB>
+    <dba.useDB>db2</dba.useDB>
     <dba.classifier>${dba.useDB}</dba.classifier>
-    <dba.erdFile>src/main/resources/entity/h2.edm</dba.erdFile>
+    <dba.erdFile>src/main/resources/entity/db2.edm</dba.erdFile>
     <dba.extraDdlDirectory>src/main/resources/extraDdl/${dba.useDB}</dba.extraDdlDirectory>
-    <dba.dataDirectory>src/test/resources/data/${dba.useDB}</dba.dataDirectory>
+    <dba.dataDirectory>src/test/resources/data/h2</dba.dataDirectory>
 
     <!-- gsp-dba-maven-pluginが使用するデータベース設定 -->
-    <nablarch.db.jdbcDriver>org.h2.Driver</nablarch.db.jdbcDriver>
-    <nablarch.db.url>jdbc:h2:./h2/db/nablarch_example</nablarch.db.url>
-    <nablarch.db.adminUser>sa</nablarch.db.adminUser>
-    <nablarch.db.adminPassword></nablarch.db.adminPassword>
-    <nablarch.db.user>NABLARCH_EXAMPLE</nablarch.db.user>
-    <nablarch.db.password>NABLARCH_EXAMPLE</nablarch.db.password>
+    <nablarch.db.jdbcDriver>com.ibm.db2.jcc.DB2Driver</nablarch.db.jdbcDriver>
+    <nablarch.db.url>jdbc:db2://localhost:10000/nablarch</nablarch.db.url>
+    <nablarch.db.adminUser>db2inst1</nablarch.db.adminUser>
+    <nablarch.db.adminPassword>db2inst1-pwd</nablarch.db.adminPassword>
+    <nablarch.db.user>workflow</nablarch.db.user>
+    <nablarch.db.password>workflow</nablarch.db.password>
     <nablarch.db.schema></nablarch.db.schema>
 
     <!-- maven-gsp-dba-pluginで配布するテストデータのartifactId。 -->
@@ -74,7 +75,7 @@
         <directory>src/${db.product}/resources</directory>
       </resource>
     </resources>
-    
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -89,7 +90,7 @@
           </archive>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -110,7 +111,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <!-- エンティティクラス生成等を行うための設定 -->
       <plugin>
         <groupId>jp.co.tis.gsp</groupId>
@@ -221,10 +222,9 @@
             <dependencies>
               <!-- プロジェクトで使用するDB製品にあわせたJDBCドライバに上書きする -->
               <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.192</version>
-                <scope>runtime</scope>
+                <groupId>com.ibm.db2</groupId>
+                <artifactId>db2jcc4</artifactId>
+                <version>10.5</version>
               </dependency>
             </dependencies>
             <executions>
@@ -450,9 +450,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.192</version>
+      <groupId>com.ibm.db2</groupId>
+      <artifactId>db2jcc4</artifactId>
+      <version>10.5</version>
     </dependency>
 
     <dependency>

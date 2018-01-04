@@ -40,6 +40,7 @@
       <listener ref="nablarchStepListenerExecutor" />
       <listener ref="nablarchItemWriteListenerExecutor" />
       <listener ref="progressLogListener" />
+      <listener ref="errorLogWriterListener" />
     </listeners>
     <chunk item-count="3000">
       <reader ref="databaseItemReader" />

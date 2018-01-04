@@ -32,7 +32,7 @@ public class TruncateTableBatchlet extends AbstractBatchlet {
     public String process() {
 
         final AppDbConnection conn = DbConnectionContext.getConnection();
-        final SqlPStatement statement = conn.prepareStatement("TRUNCATE TABLE " + tableName);
+        final SqlPStatement statement = conn.prepareStatement("TRUNCATE TABLE " + tableName + " immediate ");
         statement.executeUpdate();
 
         return "SUCCESS";
