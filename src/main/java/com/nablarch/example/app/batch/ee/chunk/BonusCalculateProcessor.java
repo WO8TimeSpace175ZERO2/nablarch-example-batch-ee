@@ -21,7 +21,7 @@ public class BonusCalculateProcessor implements ItemProcessor {
 
         EmployeeForm form = (EmployeeForm) item;
         Bonus bonus = new Bonus();
-        bonus.setEmployeeId(form.getEmployeeId());
+        bonus.setEmployeeNo(form.getEmployeeNo());
         bonus.setPayments(calculateBonus(form));
 
         return bonus;

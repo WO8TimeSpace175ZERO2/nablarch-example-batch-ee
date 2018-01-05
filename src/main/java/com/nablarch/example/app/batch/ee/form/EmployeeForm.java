@@ -8,7 +8,7 @@ package com.nablarch.example.app.batch.ee.form;
 public class EmployeeForm {
 
     /** 社員ID */
-    private Long employeeId;
+    private Long employeeNo;
 
     /** 氏名 */
     private String fullName;
@@ -30,17 +30,17 @@ public class EmployeeForm {
      *
      * @return 社員ID
      */
-    public Long getEmployeeId() {
-        return employeeId;
+    public Long getEmployeeNo() {
+        return employeeNo;
     }
 
     /**
      * 社員IDを設定します。
      *
-     * @param employeeId 社員ID
+     * @param employeeNo 社員ID
      */
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployeeNo(Long employeeNo) {
+        this.employeeNo = employeeNo;
     }
     /**
      * 氏名を返します。
