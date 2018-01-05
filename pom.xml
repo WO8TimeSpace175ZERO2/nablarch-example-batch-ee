@@ -16,19 +16,19 @@
   <!-- DB接続設定とビルド設定 -->
   <properties>
     <!-- 使用するDBによって変更になるパラメータ -->
-    <dba.useDB>h2</dba.useDB>
+    <dba.useDB>postgres</dba.useDB>
     <dba.classifier>${dba.useDB}</dba.classifier>
-    <dba.erdFile>src/main/resources/entity/h2.edm</dba.erdFile>
+    <dba.erdFile>src/main/resources/entity/${dba.useDB}.edm</dba.erdFile>
     <dba.extraDdlDirectory>src/main/resources/extraDdl/${dba.useDB}</dba.extraDdlDirectory>
-    <dba.dataDirectory>src/test/resources/data/${dba.useDB}</dba.dataDirectory>
+    <dba.dataDirectory>src/test/resources/data/h2</dba.dataDirectory>
 
     <!-- gsp-dba-maven-pluginが使用するデータベース設定 -->
-    <nablarch.db.jdbcDriver>org.h2.Driver</nablarch.db.jdbcDriver>
-    <nablarch.db.url>jdbc:h2:./h2/db/nablarch_example</nablarch.db.url>
-    <nablarch.db.adminUser>sa</nablarch.db.adminUser>
-    <nablarch.db.adminPassword></nablarch.db.adminPassword>
-    <nablarch.db.user>NABLARCH_EXAMPLE</nablarch.db.user>
-    <nablarch.db.password>NABLARCH_EXAMPLE</nablarch.db.password>
+    <nablarch.db.jdbcDriver>org.postgresql.Driver</nablarch.db.jdbcDriver>
+    <nablarch.db.url>jdbc:postgresql://localhost:5432/postgres</nablarch.db.url>
+    <nablarch.db.adminUser>postgres</nablarch.db.adminUser>
+    <nablarch.db.adminPassword>postgres</nablarch.db.adminPassword>
+    <nablarch.db.user>batch</nablarch.db.user>
+    <nablarch.db.password>batch</nablarch.db.password>
     <nablarch.db.schema></nablarch.db.schema>
 
     <!-- maven-gsp-dba-pluginで配布するテストデータのartifactId。 -->
@@ -221,10 +221,9 @@
             <dependencies>
               <!-- プロジェクトで使用するDB製品にあわせたJDBCドライバに上書きする -->
               <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.192</version>
-                <scope>runtime</scope>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>42.1.4</version>
               </dependency>
             </dependencies>
             <executions>
@@ -236,7 +235,6 @@
                   <goal>execute-ddl</goal>
                   <goal>generate-entity</goal>
                   <goal>load-data</goal>
-                  <goal>export-schema</goal>
                 </goals>
               </execution>
             </executions>
@@ -450,9 +448,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.192</version>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.1.4</version>
     </dependency>
 
     <dependency>
