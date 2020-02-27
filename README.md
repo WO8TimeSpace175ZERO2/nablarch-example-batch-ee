@@ -168,3 +168,54 @@ DBをOracleに変更する方法に関しては、解説書の以下の章を参
 | master | develop |
 |:-----------|:------------|
 |[![Build Status](https://travis-ci.org/nablarch/nablarch-example-batch-ee.svg?branch=master)](https://travis-ci.org/nablarch/nablarch-example-batch-ee)|[![Build Status](https://travis-ci.org/nablarch/nablarch-example-batch-ee.svg?branch=develop)](https://travis-ci.org/nablarch/nablarch-example-batch-ee)|
+
+
+### 7. OS環境変数上書きの検証
+
+事前に、以下の要領で環境変数を設定する。
+
+**Linux**
+
+```bash
+$ ENV_VALUE_THIRD=ENV
+
+$ ENV_VALUE_FOURTH=ENV
+
+$ ENV_VALUE_SEVENTH=ENV
+
+$ ENV_VALUE_EIGHTH=ENV
+```
+
+**Windows**
+
+```
+> set ENV_VALUE_THIRD=ENV
+
+> set ENV_VALUE_FOURTH=ENV
+
+> set ENV_VALUE_SEVENTH=ENV
+
+> set ENV_VALUE_EIGHTH=ENV
+```
+
+以下の要領でシステムプロパティを設定してバッチを起動する。
+
+```bash
+$ mvn -Denv-value.fifth=SYSPROP -Denv-value.sixth=SYSPROP -Denv-value.seventh=SYSPROP -Denv-value.eighth=SYSPROP exec:java -Dexec.mainClass=nablarch.fw.batch.ee.Main -Dexec.args=os-environment-variable
+```
+
+検証結果がログ（標準出力）に出力されるので、以下の期待される結果と比較する。
+
+**期待される結果**
+
+|キー               |設定ファイル       |環境変数     |システムプロパティ|期待値            |
+|-------------------|-------------------|-------------|------------------|------------------|
+|`env-value.first`  |                   |             |                  |`null`            |
+|`env-value.second` |`CONF`             |             |                  |`CONF`            |
+|`env-value.third`  |                   |`ENV`        |                  |`null`            |
+|`env-value.fourth` |`CONF`             |`ENV`        |                  |`ENV`             |
+|`env-value.fifth`  |                   |             |`SYSPROP`         |`SYSPROP`         |
+|`env-value.sixth`  |`CONF`             |             |`SYSPROP`         |`SYSPROP`         |
+|`env-value.seventh`|                   | `ENV`       |`SYSPROP`         |`SYSPROP`         |
+|`env-value.eighth` |`CONF`             | `ENV`       |`SYSPROP`         |`SYSPROP`         |
+
