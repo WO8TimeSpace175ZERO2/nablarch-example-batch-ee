@@ -1,0 +1,9 @@
+<job id="zip-code-truncate-table" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+  <listeners>
+    <listener ref="nablarchJobListenerExecutor" />
+  </listeners>
+
+  <step id="step1">
+    <batchlet ref="osEnvironmentVariableBatchlet" />
+  </step>
+</job>
